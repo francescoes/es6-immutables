@@ -42,4 +42,19 @@ export class ImmutableArray extends Array {
   concat() {
     return new ImmutableArray([...this, ...arguments]);
   }
+
+  reverse() {
+    return new ImmutableArray([...this].reverse());
+  }
+
+  copyWithin() {
+    const [target, start, end] = [...arguments];
+    return new ImmutableArray([...this].copyWithin(target, start, end));
+  }
+
+  splice() {
+    const thisArray = [...this];
+    super.splice.apply(thisArray, [...arguments]);
+    return new ImmutableArray(thisArray);
+  }
 }

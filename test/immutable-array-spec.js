@@ -117,6 +117,26 @@ describe('Array', () => {
   });
 
   // REVERSE
+  it('reverse: returns a new array reversing its elements without mutating the original array', () => {
+    const secondList = list.push(1, 2, 3, 4, 5);
+    const thirdList = secondList.reverse();
+    assert.deepEqual(secondList, [1, 2, 3, 4, 5]);
+    assert.deepEqual(thirdList, [5, 4, 3, 2, 1]);
+  });
+
   // COPYWITHIN
+  it('copyWithin: returns a new array copying its elements without mutating the original array', () => {
+    const secondList = list.push(1, 2, 3, 4, 5);
+    const thirdList = secondList.copyWithin(2, 0);
+    assert.deepEqual(secondList, [1, 2, 3, 4, 5]);
+    assert.deepEqual(thirdList, [1, 2, 1, 2, 3]);
+  });
+
   // SPLICE
+  it('splice: returns a new array removing an element without mutating the original array', () => {
+    const secondList = list.push(1, 2, 3, 4, 5);
+    const thirdList = secondList.splice(2, 1);
+    assert.deepEqual(secondList, [1, 2, 3, 4, 5]);
+    assert.deepEqual(thirdList, [1, 2, 4, 5]);
+  });
 });
