@@ -139,4 +139,36 @@ describe('Array', () => {
     assert.deepEqual(secondList, [1, 2, 3, 4, 5]);
     assert.deepEqual(thirdList, [1, 2, 4, 5]);
   });
+
+  // SPLICE
+  it('splice: returns a new array removing and inserting elements without mutating the original array', () => {
+    const secondList = list.push(1, 2, 3, 4, 5);
+    const thirdList = secondList.splice(2, 1, 1, 2, 3);
+    assert.deepEqual(secondList, [1, 2, 3, 4, 5]);
+    assert.deepEqual(thirdList, [1, 2, 1, 2, 3, 4, 5]);
+  });
+
+  // SPLICE
+  it('splice: returns a new array removing and inserting elements without mutating the original array', () => {
+    const secondList = list.push(1, 2, 3, 4, 5);
+    const thirdList = secondList.splice(2, 1, 1, 2, 3);
+    assert.deepEqual(secondList, [1, 2, 3, 4, 5]);
+    assert.deepEqual(thirdList, [1, 2, 1, 2, 3, 4, 5]);
+  });
+
+  // FILL
+  it('fill: returns a new array filled with the given element without mutating the original array', () => {
+    const secondList = list.push(1, 2, 3, 4, 5);
+    const thirdList = secondList.fill(0);
+    assert.deepEqual(secondList, [1, 2, 3, 4, 5]);
+    assert.deepEqual(thirdList, [0, 0, 0, 0, 0]);
+  });
+
+  // FILL
+  it('fill: returns a new array filled with the given element specifying start and end without mutating the original array', () => {
+    const secondList = list.push(1, 2, 3, 4, 5);
+    const thirdList = secondList.fill(0, 2, 3);
+    assert.deepEqual(secondList, [1, 2, 3, 4, 5]);
+    assert.deepEqual(thirdList, [1, 2, 0, 4, 5]);
+  });
 });

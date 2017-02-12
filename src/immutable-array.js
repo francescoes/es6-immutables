@@ -57,4 +57,9 @@ export class ImmutableArray extends Array {
     super.splice.apply(thisArray, [...arguments]);
     return new ImmutableArray(thisArray);
   }
+
+  fill() {
+    const [value, start, end] = [...arguments];
+    return new ImmutableArray([...this].fill(value, start, end));
+  }
 }
