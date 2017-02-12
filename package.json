@@ -1,0 +1,32 @@
+{
+  "name": "es6-immutables",
+  "version": "0.0.0",
+  "description": "",
+  "main": "./index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "babel": "^6.5.2",
+    "babel-core": "^6.22.1",
+    "babel-loader": "^6.2.10",
+    "babel-preset-latest": "^6.22.0",
+    "es7-shim": "^6.0.0",
+    "mocha": "^3.2.0",
+    "webpack": "^2.2.1"
+  },
+  "babel": {
+    "plugins": [
+      "transform-es2015-object-super",
+      "transform-es2015-modules-commonjs",
+      "transform-es2015-parameters",
+      "transform-es2015-destructuring"
+    ]
+  },
+  "browser": {},
+  "scripts": {
+    "test": "mocha --compilers js:babel-core/register",
+    "build": "./node_modules/webpack/bin/webpack.js --progress --colors",
+    "watch": "./node_modules/webpack/bin/webpack.js --progress --colors"
+  },
+  "author": "Francesco Esposito",
+  "license": "ISC"
+}
