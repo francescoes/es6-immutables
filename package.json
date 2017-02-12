@@ -24,8 +24,7 @@
   "browser": {},
   "scripts": {
     "test": "mocha --compilers js:babel-core/register",
-    "build": "./node_modules/webpack/bin/webpack.js --progress --colors",
-    "watch": "./node_modules/webpack/bin/webpack.js --progress --colors"
+    "build": "./node_modules/webpack/bin/webpack.js --progress --colors"
   },
   "author": "Francesco Esposito",
   "license": "ISC"
