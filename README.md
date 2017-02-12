@@ -6,5 +6,5 @@ Early stage project for Immutable js data structure extending built-in javascrip
 - Clone the repo
 - `npm install`
 - `npm run test`
-- Add new test and new methods
+- Add new test and new functionalities
 - Rock!
