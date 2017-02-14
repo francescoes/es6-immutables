@@ -1,4 +1,9 @@
-import {ImmutableArray} from './src/immutable-array';
+import {Array} from './src/immutable-array';
 
-window.Immutables = {};
-window.Immutables.Array = ImmutableArray;
+const Immutables = {
+    Array: Array
+};
+
+if (typeof window !== "undefined") {
+  window.Immutables = Immutables;
+}

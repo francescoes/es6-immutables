@@ -300,7 +300,7 @@ var _deepFreeze = __webpack_require__(12);
 class ImmutableArray extends Array {
   constructor() {
     super();
-    const args = [...arguments];
+    const args = (0, _deepFreeze.deepFreeze)([...arguments]);
     if (!args.length) return (0, _deepFreeze.deepFreeze)(this);
     return (0, _deepFreeze.deepFreeze)(Object.assign(this, args.reduce(x => x)));
   }
@@ -347,6 +347,34 @@ class ImmutableArray extends Array {
   concat() {
     return new ImmutableArray([...this, ...arguments]);
   }
+
+  reverse() {
+    return new ImmutableArray([...this].reverse());
+  }
+
+  copyWithin() {
+    var _ref4 = [...arguments];
+    const target = _ref4[0],
+          start = _ref4[1],
+          end = _ref4[2];
+
+    return new ImmutableArray([...this].copyWithin(target, start, end));
+  }
+
+  splice() {
+    const thisArray = [...this];
+    super.splice.apply(thisArray, [...arguments]);
+    return new ImmutableArray(thisArray);
+  }
+
+  fill() {
+    var _ref5 = [...arguments];
+    const value = _ref5[0],
+          start = _ref5[1],
+          end = _ref5[2];
+
+    return new ImmutableArray([...this].fill(value, start, end));
+  }
 }
 exports.ImmutableArray = ImmutableArray;
 
@@ -360,7 +388,7 @@ exports.ImmutableArray = ImmutableArray;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.deepFreeze = deepFreeze;
+exports.deepFreeze = undefined;
 
 var _object = __webpack_require__(27);
 
@@ -371,16 +399,20 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 if (!Object.values) {
   _object2.default.shim();
 } // TODO: babel has am issue with Object.values, investigate to avoid this shim
-function deepFreeze(element) {
-  if (typeof element !== 'object' || element === null || Object.isFrozen(element)) return;
-  // handle new structures Map and Set that are typeof function
-  Object.freeze(element);
-  if (Array.isArray(element)) {
-    element.forEach(item => deepFreeze(item));
-  } else {
-    Object.values(element).forEach(item => deepFreeze(item));
-  }
-}
+const deepFreeze = exports.deepFreeze = item => {
+  const freeze = element => {
+    if (typeof element !== 'object' || element === null || Object.isFrozen(element)) return;
+    // handle new structures Map and Set that are typeof function
+    Object.freeze(element);
+    if (Array.isArray(element)) {
+      element.forEach(item => freeze(item));
+    } else {
+      Object.values(element).forEach(item => freeze(item));
+    }
+  };
+  freeze(item);
+  return item;
+};
 
 /***/ }),
 /* 13 */
@@ -1374,9 +1406,14 @@ module.exports = function shimValues() {
 
 var _immutableArray = __webpack_require__(11);
 
-window.Immutables = {};
-window.Immutables.Array = _immutableArray.ImmutableArray;
+const Immutables = {
+  Array: _immutableArray.Array
+};
+
+if (typeof window !== "undefined") {
+  window.Immutables = Immutables;
+}
 
 /***/ })
 /******/ ]);
-//# sourceMappingURL=bundle.js.map
+//# sourceMappingURL=immutables.js.map

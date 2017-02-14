@@ -1,7 +1,7 @@
-module.exports = {
+ module.exports = {
     entry: './index.js',
     output: {
-        filename: 'dist/bundle.js'
+        filename: 'dist/immutables.js'
     },
     devtool: 'source-map',
     module: {

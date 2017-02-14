@@ -11,8 +11,11 @@
     "babel-polyfill": "^6.22.0",
     "babel-preset-env": "^1.1.8",
     "babel-preset-latest": "^6.22.0",
+    "chai": "^3.5.0",
     "es7-shim": "^6.0.0",
+    "immutable": "^3.8.1",
     "mocha": "^3.2.0",
+    "seamless-immutable": "^7.0.1",
     "webpack": "^2.2.1"
   },
   "babel": {
@@ -25,6 +28,7 @@
   },
   "scripts": {
     "test": "mocha --require babel-polyfill --compilers js:babel-register",
+    "perf": "node perf/code-performance.js",
     "build": "./node_modules/webpack/bin/webpack.js --progress --colors"
   },
   "author": "Francesco Esposito",
