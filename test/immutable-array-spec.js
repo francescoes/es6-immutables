@@ -1,25 +1,21 @@
-import { assert } from 'chai';
-import { Immutables } from '../src/immutables';
+import assert from 'assert';
+import { ImmutableArray } from '../src/immutable-array';
 
 describe('Array#constructor', () => {
-  it('constructor: creates an array', () => {
-    const list = Immutables.Array([1, 2, { item: 2 }, []]);
-    assert.isTrue(list instanceof Array);
-  });
-});
-
-describe('Array#equality', () => {
-  it('strict equal returns true on two arrays with the same elements', () => {
-    const list = Immutables.Array([1, 2, { item: 2 }, []]);
-    const anotherList = Immutables.Array([1, 2, { item: 2 }, []]);
-    assert.strictEqual(list, anotherList);
+  it('constructor: creates an immutable array', () => {
+    const list = new ImmutableArray([1, 2, { item: 2 }, []]);
+    list[0] = 1;
+    list[2].anotherItem = 1;
+    list[2].item = 0;
+    list[3].push(1);
+    assert.deepEqual(list, [1, 2, { item: 2 }, []]);
   });
 });
 
 describe('Array#push', () => {
   let list;
   beforeEach(() => {
-    list = Immutables.Array();
+    list = new ImmutableArray();
   });
 
   it('returns a new array adding an element at the end without mutating the original', () => {
@@ -43,14 +39,12 @@ describe('Array#push', () => {
 describe('Array#pop', () => {
   let list;
   beforeEach(() => {
-    list = Immutables.Array();
+    list = new ImmutableArray();
   });
-  it('returns a new immutable array removing the last element without mutating the original', () => {
+  it('returns a new array removing the last element without mutating the original', () => {
     const secondList = list.push({ item: 2 });
     const thirdList = secondList.pop();
     assert.deepEqual(secondList, [{ item: 2 }]);
-    assert.deepEqual(thirdList, []);
-    thirdList.push(2);
     assert.deepEqual(thirdList, []);
   });
 });
@@ -58,7 +52,7 @@ describe('Array#pop', () => {
 describe('Array#map', () => {
   let list;
   beforeEach(() => {
-    list = Immutables.Array();
+    list = new ImmutableArray();
   });
   it('returns a new array immutable array of pow elements', () => {
     const secondList = list.push(1, 2, 3, 4);
@@ -72,7 +66,7 @@ describe('Array#map', () => {
 describe('Array#filter', () => {
   let list;
   beforeEach(() => {
-    list = Immutables.Array();
+    list = new ImmutableArray();
   });
   it('returns a new array immutable array of filterd elements', () => {
     const secondList = list.push(1, 5, 10, 22, 15, 28);
@@ -87,7 +81,7 @@ describe('Array#filter', () => {
 describe('Array#shift', () => {
   let list;
   beforeEach(() => {
-    list = Immutables.Array();
+    list = new ImmutableArray();
   });
   it('returns a new array removing the first element without mutating the original', () => {
     const secondList = list.push({ item: 2 }, 1);
@@ -100,7 +94,7 @@ describe('Array#shift', () => {
 describe('Array#unshift', () => {
   let list;
   beforeEach(() => {
-    list = Immutables.Array();
+    list = new ImmutableArray();
   });
   it('returns a new array adding an element at the end without mutating the original', () => {
     const anotherList = list.unshift(1);
@@ -122,7 +116,7 @@ describe('Array#unshift', () => {
 describe('Array#sort', () => {
   let list;
   beforeEach(() => {
-    list = Immutables.Array();
+    list = new ImmutableArray();
   });
   it('returns a new array with alphabetically sorted elments', () => {
     const secondList = list.unshift('b', 'c', 'f', 'a', 'd', 'e');
@@ -149,7 +143,7 @@ describe('Array#sort', () => {
 describe('Array#concat', () => {
   let list;
   beforeEach(() => {
-    list = Immutables.Array();
+    list = new ImmutableArray();
   });
   it('returns a new array with concatenated elements', () => {
     const secondList = list.push(1, 2, 3, 4, 5);
@@ -162,7 +156,7 @@ describe('Array#concat', () => {
 describe('Array#reverse', () => {
   let list;
   beforeEach(() => {
-    list = Immutables.Array();
+    list = new ImmutableArray();
   });
   it('returns a new array reversing its elements without mutating the original array', () => {
     const secondList = list.push(1, 2, 3, 4, 5);
@@ -175,7 +169,7 @@ describe('Array#reverse', () => {
 describe('Array#copyWithin', () => {
   let list;
   beforeEach(() => {
-    list = Immutables.Array();
+    list = new ImmutableArray();
   });
   it(' returns a new array copying its elements without mutating the original array', () => {
     const secondList = list.push(1, 2, 3, 4, 5);
@@ -188,7 +182,7 @@ describe('Array#copyWithin', () => {
 describe('Array#splice', () => {
   let list;
   beforeEach(() => {
-    list = Immutables.Array();
+    list = new ImmutableArray();
   });
 
   it('returns a new array removing an element without mutating the original array', () => {
@@ -216,7 +210,7 @@ describe('Array#splice', () => {
 describe('Array#fill', () => {
   let list;
   beforeEach(() => {
-    list = Immutables.Array();
+    list = new ImmutableArray();
   });
 
   it('returns a new array filled with the given element without mutating the original array', () => {

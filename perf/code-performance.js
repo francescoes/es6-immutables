@@ -1,6 +1,6 @@
 require('babel-core/register');
 const Immutable = require('immutable');
-const Immutables = require('../src/immutables.js');
+const Immutables = require('../src/immutable-array.js');
 const SImmutable = require('seamless-immutable');
 
 function immutablejs() {
@@ -14,47 +14,11 @@ function immutablejs() {
     .push('string').push('string').push('string').push('string')
     .push('string').push('string').push('string').push('string')
     .push('string').push('string').push('string').push('string')
-    .push('string').push('string').push('string').push('string')
-    .push('string').push('string').push('string').push('string')
-    .push('string').push('string').push('string').push('string')
-    .push('string').push('string').push('string').push('string')
-    .push('string').push('string').push('string').push('string')
-    .push('string').push('string').push('string').push('string')
-    .push('string').push('string').push('string').push('string')
-    .push('string').push('string').push('string').push('string')
-    .push('string').push('string').push('string').push('string')
-    .push('string').push('string').push('string').push('string')
-    .push('string').push('string').push('string').push('string')
-    .push('string').push('string').push('string').push('string')
-    .push('string').push('string').push('string').push('string')
-    .push('string').push('string').push('string').push('string')
-    .push('string').push('string').push('string').push('string')
-    .push('string').push('string').push('string').push('string')
-    .push('string').push('string').push('string').push('string')
-    .push('string').push('string').push('string').push('string')
 }
 
 function immutables() {
-  const list = Immutables.Immutables.Array();
+  const list = new Immutables.ImmutableArray();
   list.push('string').push('string').push('string').push('string')
-    .push('string').push('string').push('string').push('string')
-    .push('string').push('string').push('string').push('string')
-    .push('string').push('string').push('string').push('string')
-    .push('string').push('string').push('string').push('string')
-    .push('string').push('string').push('string').push('string')
-    .push('string').push('string').push('string').push('string')
-    .push('string').push('string').push('string').push('string')
-    .push('string').push('string').push('string').push('string')
-    .push('string').push('string').push('string').push('string')
-    .push('string').push('string').push('string').push('string')
-    .push('string').push('string').push('string').push('string')
-    .push('string').push('string').push('string').push('string')
-    .push('string').push('string').push('string').push('string')
-    .push('string').push('string').push('string').push('string')
-    .push('string').push('string').push('string').push('string')
-    .push('string').push('string').push('string').push('string')
-    .push('string').push('string').push('string').push('string')
-    .push('string').push('string').push('string').push('string')
     .push('string').push('string').push('string').push('string')
     .push('string').push('string').push('string').push('string')
     .push('string').push('string').push('string').push('string')
