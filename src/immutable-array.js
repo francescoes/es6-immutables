@@ -1,77 +1,82 @@
-import {deepFreeze} from './utils/deep-freeze'
+import { deepFreeze } from './utils/deep-freeze';
 
-const mutable = Symbol('mutable');
-export class ImmutableArray extends Array {
+export const Immutables = {
+   Array(array = []) {
+     const key = JSON.stringify(array);
+     return cache[key] ? cache[key] : new ImmutableArray(array);
+   }
+};
+
+const cache = {};
+
+class ImmutableArray extends Array {
   constructor() {
     super();
-    this[mutable] = [...arguments];
+    const args = [...arguments];
 
     // if the constructor is empty
-    if (!arguments.length) {
+    if (!args.length) {
       Object.freeze(this);
-    } else if (!Array.isArray(arguments[0])) {
-      throw Error(`Illegal Argument: array expected, ${typeof arguments[0]} given instead`);
+    } else if (!Array.isArray(args[0])) {
+      console.log(args);
+      throw Error(`Illegal Argument: array expected, ${typeof args[0]} given instead`);
     } else {
-      Object.assign(this, this[mutable].reduce(x => x));
+      Object.assign(this, args.reduce(x => x));
       deepFreeze(this);
     }
+
+    cache[JSON.stringify(this)] = this;
   }
 
+  static get [Symbol.species]() { return Array; }
+
   push() {
-    const array = [...this, ...arguments];
-    Object.freeze(array);
-    return array;
-    //return new ImmutableArray([...this, ...arguments]);
+    return this.concat(...arguments);
   }
 
   pop() {
-    return new ImmutableArray([...this].slice(0, -1));
+    return Immutables.Array(super.slice.call(this, 0, -1));
   }
 
   shift() {
-    return new ImmutableArray([...this].slice(1));
+    return Immutables.Array(super.slice.call(this, 1));
   }
 
   unshift() {
-    return new ImmutableArray([...arguments, ...this]);
+    return Immutables.Array(super.concat.call([...arguments], this));
   }
 
-  map() {
-    const [func, thisObject] = [...arguments];
-    return new ImmutableArray([...this].map(func, thisObject));
+  map(func, thisObject) {
+    return Immutables.Array(super.map.call(this, func, thisObject));
   }
 
-  filter() {
-    const [func, thisObject] = [...arguments];
-    return new ImmutableArray([...this].filter(func, thisObject));
+  filter(func, thisObject) {
+    return Immutables.Array(super.filter.call(this, func, thisObject));
   }
 
-  sort() {
-    const [func] = [...arguments];
-    return new ImmutableArray([...this].sort(func));
+  sort(func) {
+    return Immutables.Array([...this].sort(func));
   }
 
   concat() {
-    return new ImmutableArray([...this, ...arguments]);
+    return Immutables.Array(super.concat.call(this, [...arguments]));
   }
 
   reverse() {
-    return new ImmutableArray([...this].reverse());
+    return Immutables.Array([...this].reverse());
   }
 
-  copyWithin() {
-    const [target, start, end] = [...arguments];
-    return new ImmutableArray([...this].copyWithin(target, start, end));
+  copyWithin(target, start, end) {
+    return Immutables.Array([...this].copyWithin(target, start, end));
   }
 
   splice() {
     const thisArray = [...this];
-    super.splice.apply(thisArray, [...arguments]);
-    return new ImmutableArray(thisArray);
+    super.splice.call(thisArray, ...arguments);
+    return Immutables.Array(thisArray);
   }
 
-  fill() {
-    const [value, start, end] = [...arguments];
-    return new ImmutableArray([...this].fill(value, start, end));
+  fill(value, start, end) {
+    return Immutables.Array([...this].fill(value, start, end));
   }
 }

@@ -4,17 +4,15 @@ if (!Object.values) {
   values.shim();
 }
 
-export const deepFreeze = (item) => {
-  const freeze = (element) => {
-    if (typeof element !== 'object' || element === null || Object.isFrozen(element)) return;
-    // handle new structures Map and Set that are typeof function
-    Object.freeze(element);
-    if (Array.isArray(element)) {
-      element.forEach(e => freeze(e));
-    } else {
-      Object.values(element).forEach(e => freeze(e));
+export const deepFreeze = (object) => {
+  const properties = Object.getOwnPropertyNames(object);
+  // Freeze properties before freezing self
+  properties.forEach(function(property) {
+    const item = object[property]; 
+    if (typeof item === 'object' && item !== null && !Object.isFrozen(item)) {
+       deepFreeze(item);
     }
-  };
-  freeze(item);
-  return item;
-};
+  });
+
+  return Object.isFrozen(object) ? object: Object.freeze(object);
+}
